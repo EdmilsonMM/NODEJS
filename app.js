@@ -66,6 +66,8 @@ app.listen(puerto,()=>{
     console.log('Servidor conectado en el puerto ', puerto)
 })*/
 
+/*
+
 const express = require("express")
 const app = express()
 
@@ -87,4 +89,65 @@ app.use((req,res,next)=>{
 
 app.listen(puerto,()=>{
     console.log("Conectado al puerto : ", puerto)
+})
+
+*/
+/*
+const express = require("express")
+const app = express()
+
+const port = 3000
+
+app.use(express.static(__dirname+"/public"))
+
+app.get('/',(req,res)=>{
+    res.send("Hola te conectaste")
+})
+
+
+app.get('/mangas',(req,res)=>{
+    res.send("Hola aqui esta la lista de mangas")
+})
+
+
+app.use((req,res,next)=>{
+    res.status(404).sendFile(__dirname+"/public/404.html")
+})
+app.listen(port,()=>{
+    console.log("Servidor prendido en el puerto : ",port)
+})*/
+
+const express = require("express")
+const app = express()
+
+const port = 3000
+
+app.set("view engine","ejs")
+app.set("views",__dirname+"/views")
+
+app.use(express.static(__dirname+"/public"))
+
+app.get('/',(req,res)=>{
+    res.render("index", {
+        Nombre : "Juan",
+        Apellido : "Chavez",
+        Edad: 20
+    })
+})
+
+app.get('/mangas',(req,res)=>{
+    res.render("mangas",{
+        Manga1: "prueba1",
+        Manga2: "prueba2",
+        Manga3: "prueba3",
+        Manga4: "prueba4"
+    })
+})
+
+app.use((req,res,next)=>{
+    res.status(404).render("404")
+})
+
+app.listen(port,()=>{
+    console.log("servidor conectado")
 })
