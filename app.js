@@ -120,9 +120,10 @@ app.listen(port,()=>{
 const express = require("express")
 const app = express()
 
-const port = 3000
-
+const port = process.env.PORT || 3000 ;
+//indicando que vamos usar el view engine y eleigiendo una plantilla
 app.set("view engine","ejs")
+//indicando que voy a trabajar con las vistas que se encuentra en la carpeta views
 app.set("views",__dirname+"/views")
 
 app.use(express.static(__dirname+"/public"))
@@ -149,5 +150,5 @@ app.use((req,res,next)=>{
 })
 
 app.listen(port,()=>{
-    console.log("servidor conectado")
+    console.log("servidor conectado en el puerto : ",port)
 })
